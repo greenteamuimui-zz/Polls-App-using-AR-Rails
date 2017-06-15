@@ -1,5 +1,6 @@
 class Response < ApplicationRecord
   validates :user_id, :answer_choice_id, presence: true
+  validate :no_duplicate_response
 
   belongs_to :respondent,
     primary_key: :id,
@@ -26,6 +27,8 @@ class Response < ApplicationRecord
 
   private
   def no_duplicate_response
-
+    if respondent_already_answered?
+      errors[:base]  << "Can't answer the same question twice!"
+    end
   end
 end
