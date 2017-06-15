@@ -16,6 +16,16 @@ class Response < ApplicationRecord
     source: :question
 
   def sibling_responses
-    self.question.responses
+    self.question.responses.where.not("responses.id = ?", self.id)
+  end
+
+  def respondent_already_answered?
+    id = self.sibling_responses.pluck(:user_id)
+    Response.exists?(user_id:id)
+  end
+
+  private
+  def no_duplicate_response
+
   end
 end
