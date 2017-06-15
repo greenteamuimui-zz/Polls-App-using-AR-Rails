@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   validates :user_name, presence: true
-  has_many :polls,
+  has_many :authored_polls,
     primary_key: :id,
     foreign_key: :poll_id,
     class_name: :Poll
@@ -8,5 +8,5 @@ class User < ApplicationRecord
   has_many :responses,
     primary_key: :id,
     foreign_key: :user_id,
-    class_name: :Response 
+    class_name: :Response
 end
